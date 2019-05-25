@@ -1,0 +1,78 @@
+import simplegui
+import random
+R=1
+r2=0
+y=0
+r=0.05
+x=0
+v=0
+r1=0.0005
+w=0
+flag=0
+flag1=0
+def draw(canvas):
+    global R
+    global r2
+    global x
+    global v
+    global y
+    global r
+    global r1
+    global w
+    for i in range(0,500,20):
+        for j in range(0,500,50):
+            canvas.draw_line([10+j+w,10+i],[30+j+w,10+i],2,'blue')
+            canvas.draw_line([20+j-w,40+i],[40+j-w,40+i],2,'blue')
+            w+=r1
+            if w>=200 or w<=0:
+                r1=-r1
+    
+    canvas.draw_polygon([[0,350-y],[500,350-y],[500,0],[0,0]],1,'black','black')
+    y+=r
+    if y>=100:
+        r=0
+    canvas.draw_circle([430,70],50,1,'orange','yellow')
+    canvas.draw_circle([480,40],R,1,'black','black')
+    if flag1==1:
+        R+=r2
+        if R>=120 or R<=0:
+            R=1
+    
+    for i in range(10):
+        x1=random.randint(1,500)
+        y1=random.randint(1,500)
+        canvas.draw_circle([x1,y1],5,1,'white','aqua')
+    canvas.draw_polyline([[95,75],[130,45],[160,140],[200,90]],1,'white')
+    canvas.draw_circle([95,75],8,1,'yellow','yellow')
+    canvas.draw_circle([130,45],8,1,'yellow','yellow')
+    canvas.draw_circle([160,140],8,1,'yellow','yellow')
+    canvas.draw_circle([200,90],8,1,'yellow','yellow')
+    for i in range(0,100,20):
+        for j in range(0,500,20):
+            canvas.draw_circle([10+j,490-i],10,1,'black','gray')
+    canvas.draw_polygon([[352-x,365],[400-x,365],[410-x,320]],1,'yellow','red')
+    canvas.draw_polygon([[352-x,375],[400-x,375],[410-x,415]],1,'yellow','red')
+    canvas.draw_polygon([[400-x,400],[350-x,375],[360-x,370],[350-x,365],[400-x,340],[450-x,370]],1,'red','pink')
+    canvas.draw_polygon([[450-x,370],[498-x,400],[498-x,340]],1,'red','pink')
+    canvas.draw_circle([375-x,362],5,1,'red','red')           
+    if flag==1:
+        x+=v
+        if x>=350:
+            v=0
+    
+def swim():
+    global v
+    global flag
+    flag=not flag
+    v=0.5
+def grow():
+    global r2
+    global flag1
+    flag1=not flag1
+    r2=0.09
+frame=simplegui.create_frame('dhruvi',500,500)
+frame.start()
+frame.set_canvas_background('aqua')
+frame.set_draw_handler(draw)
+frame.add_button('swim',swim)
+frame.add_button('growmoon',grow)
